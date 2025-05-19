@@ -9,7 +9,7 @@
         MOV AX, @DATA    ; Khoi dau thanh ghi DS
         MOV DS, AX    ; Tro thanh ghi ds ve dau doan data
     
-        ; In ra man hinh xau TBao1
+        ; In ra man hinh xau TB1
         LEA DX, TB1    ; Dua con tro toi dia chi cua TBao1
         MOV AH, 9    ; Su dung ham ngat 9 cua ngat INT 21h
         INT 21H
@@ -19,7 +19,7 @@
         INT 21H
         MOV OUTPUT, AL    ; gan gia tri vua nhap (duoc luu o AL) vao bien KyTu
     
-        ; In ra man hinh xau TBao2
+        ; In ra man hinh xau TB2
         LEA DX, TB2    ; Dua con tro toi dia chi cua TBao2
         MOV AH, 9    ; Su dung ham ngat 9 cua ngat INT 21h
         INT 21H
