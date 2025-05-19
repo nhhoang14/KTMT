@@ -1,5 +1,5 @@
 .Model Small
-.Stack 100h
+.Stack 100H
 .Code
 MAIN Proc
     MOV AH, 1 ; Nhap 1 ki tu tu ban phim
