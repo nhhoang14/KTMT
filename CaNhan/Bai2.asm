@@ -18,3 +18,5 @@ MAIN Proc
     MOV AH, 4CH ; Ket thuc chuong trinh
     INT 21H
 MAIN Endp
+
+END MAIN
