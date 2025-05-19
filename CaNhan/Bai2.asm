@@ -2,20 +2,19 @@
 .Stack 100h
 .Code
 MAIN Proc
-    MOV AH, 1
+    MOV AH, 1 ; Nhap 1 ki tu tu ban phim
     INT 21H
-    MOV BL, AL
+    MOV BL, AL ; Gan AL vao BL
     
-    MOV AH, 2
-    MOV DL, 0DH
+    MOV AH, 2 
+    MOV DL, 0DH ; CR
     INT 21H
-    
-    MOV DL, 0AH
-    INT 21H
-    
-    MOV DL, BL
+    MOV DL, 0AH ; LR
     INT 21H
     
-    MOV AH, 4CH
+    MOV DL, BL ; Gan BL vao Dl 
+    INT 21H
+    
+    MOV AH, 4CH ; Ket thuc chuong trinh
     INT 21H
 MAIN Endp
