@@ -57,7 +57,7 @@
         MOV AH, 2
         INT 21H
     
-        ; K?t thúc chuong trình
+        ; Ket thuc chuong trinh
         MOV AH, 4CH
         INT 21H
     MAIN Endp
