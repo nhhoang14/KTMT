@@ -2,7 +2,7 @@
 .Stack 100H
 .Data
     TB1 DB 'Gia tri lon nhat cua mang: $'
-    TB2 DB 'Gia tri nho nhat cua mang: $'                
+    TB2 DB 13,10,'Gia tri nho nhat cua mang: $'                
     list DB 1,2,3,4,5,6,7,8,0
     MIN DB ?
     MAX DB ?   
@@ -11,29 +11,54 @@
         MOV AX, @DATA
         MOV DS, AX
                    
-        MOV CX, 9                         
-        LEA SI, LIST       ; dua gia tri dau tien cua chuoi vào si
-        MOV BL, [SI]    ; dua dia chi si vào bl
-        INC SI               ; tang gia tri si them 1
+        MOV CX, 9              ; s? ph?n t? trong m?ng
+        LEA SI, list           ; SI tr? d?n d?u m?ng
+        MOV AL, [SI]           ; l?y ph?n t? d?u tiên
+        MOV MAX, AL
+        MOV MIN, AL
+        INC SI                 ; tr? d?n ph?n t? ti?p theo
+        DEC CX                 ; dã x? lý 1 ph?n t? d?u tiên nên gi?m CX
+    
     Start:
-        LODSB        
-        CMP AL, AL ; so sanh al va bl 
-        JGE BYPASS;   nhay denn BYPASS               
-        MOV BL, AL;      neu al > bl thi gan bl = al;
-        BYPASS:
-        LOOP Start  ; lap
-        
+        LODSB                  ; n?p ph?n t? ti?p theo vào AL và tang SI
+        CMP AL, MAX
+        JLE SkipMax
+        MOV MAX, AL
+    SkipMax:
+    
+        CMP AL, MIN
+        JGE SkipMin
+        MOV MIN, AL
+    SkipMin:
+    
+        LOOP Start
+    
+        ; In chu?i TB1
         LEA DX, TB1
         MOV AH, 9
         INT 21H
-         
-        ; print the max
-        ADD BL, '0' ; 	ep kieu so ve kieu ke tu
-        MOV DL,BL   ; dua gia tri max bl vào dl;
-        MOV AH, 2  ; in ra màn hình
+    
+        ; In MAX (chuy?n sang ký t?)
+        MOV AL, MAX
+        ADD AL, '0'
+        MOV DL, AL
+        MOV AH, 2
         INT 21H
-            
-        MOV AH, 4CH ; ket thuc chuong trinh
+    
+        ; Xu?ng dòng + in chu?i TB2
+        LEA DX, TB2
+        MOV AH, 9
+        INT 21H
+    
+        ; In MIN (chuy?n sang ký t?)
+        MOV AL, MIN
+        ADD AL, '0'
+        MOV DL, AL
+        MOV AH, 2
+        INT 21H
+    
+        ; K?t thúc chuong trình
+        MOV AH, 4CH
         INT 21H
     MAIN Endp
 END MAIN
