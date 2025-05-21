@@ -24,7 +24,6 @@
     L1 DB '   |   |   $'
     L2 DB '---+---+---$'
     N1 DB ' | $'
-    ; -------------------
     
     ; CELL NUMBERS ------
     C1 DB '1$' 
@@ -36,9 +35,8 @@
     C7 DB '7$'
     C8 DB '8$'
     C9 DB '9$'
-    ; -------------------
     
-    ; PLAYER NO. , MOVES AND CHECK FLAGS FOR IF THE GAME IS WON OR DRAWN
+    ; PLAYER NUMBER, MOVES AND CHECK FLAGS FOR IF THE GAME IS WON OR DRAWN
     PLAYER DB 50, '$' 
     MOVES DB 0
     DONE DB 0
@@ -62,8 +60,6 @@
     
     ; THIS LINE IS USED TO OVERWIRTE A LINE TO CLEAN THE AREA
     EMP DB '                                        $'  
-    
-    ;--------------------------------------------------------
 
 .CODE
 MAIN PROC
@@ -75,52 +71,52 @@ MAIN PROC
     
         ; LOGO DISPLAY START -----------------
          
-            ; SET CURSOR
-            MOV AH, 2
-            ;MOV BH, 0
-            MOV DH, 6
-            MOV DL, 14
-            INT 10H 
+        ; SET CURSOR
+        MOV AH, 2
+        MOV BH, 0
+        MOV DH, 6
+        MOV DL, 14
+        INT 10H 
             
         LEA DX, T1
         MOV AH, 9
         INT 21H
 
-            ; SET CURSOR
-            MOV AH, 2
-            MOV DH, 7
-            MOV DL, 14
-            INT 10H 
+        ; SET CURSOR
+        MOV AH, 2
+        MOV DH, 7
+        MOV DL, 14
+        INT 10H 
             
         LEA DX, T2
         MOV AH, 9
         INT 21H
                                         
-            ; SET CURSOR 
-            MOV AH, 2
-            MOV DH, 8
-            MOV DL, 14
-            INT 10H 
+        ; SET CURSOR
+        MOV AH, 2
+        MOV DH, 8
+        MOV DL, 14
+        INT 10H 
            
         LEA DX, T3
         MOV AH, 9
         INT 21H
             
-            ; SET CURSOR 
-            MOV AH, 2
-            MOV DH, 9
-            MOV DL, 14
-            INT 10H  
+        ; SET CURSOR
+        MOV AH, 2
+        MOV DH, 9
+        MOV DL, 14
+        INT 10H  
               
         LEA DX, T2
         MOV AH, 9
         INT 21H
 
-            ; SET CURSOR 
-            MOV AH, 2
-            MOV DH, 10
-            MOV DL, 14
-            INT 10H 
+        ; SET CURSOR 
+        MOV AH, 2
+        MOV DH, 10
+        MOV DL, 14
+        INT 10H 
         
         LEA DX, T4
         MOV AH, 9
@@ -128,21 +124,21 @@ MAIN PROC
         
         ; LOGO DISPLAY END -----------------
         
-            ; SET CURSOR
-            MOV AH, 2
-            MOV DH, 12
-            MOV DL, 22
-            INT 10H 
+        ; SET CURSOR
+        MOV AH, 2
+        MOV DH, 12
+        MOV DL, 22
+        INT 10H 
         
         LEA DX, TAGLINE  ; DEVELOPER NAME DISPLAY
         MOV AH, 9
         INT 21H
         
-            ; SET CURSOR
-            MOV AH, 2
-            MOV DH, 13
-            MOV DL, 24
-            INT 10H  
+        ; SET CURSOR
+        MOV AH, 2
+        MOV DH, 14
+        MOV DL, 23
+        INT 10H  
         
         LEA DX, PAK  ; PRESS ANY KEY
         MOV AH, 9
@@ -151,105 +147,104 @@ MAIN PROC
         MOV AH, 7    ; INPUT WITHOUT ECHO
         INT 21H
         
-            ; CLEAR SCREEN
-                    
-            MOV AX,0600H 
-            MOV BH,07H 
-            MOV CX,0000H 
-            MOV DX,184FH 
-            INT 10H 
+        ; CLEAR SCREEN       
+        MOV AX,0600H 
+        MOV BH,07H 
+        MOV CX,0000H 
+        MOV DX,184FH 
+        INT 10H 
             
-            JMP RULES
+        JMP RULES
 
 ; ----------- DISPLAY GAME RULES --------------
                                                                                
     RULES:
-            ; SET CURSOR
-            MOV AH, 2
-            MOV BH, 0
-            MOV DH, 6
-            MOV DL, 7
-            INT 10H
+        ; SET CURSOR
+        MOV AH, 2
+        MOV BH, 0
+        MOV DH, 6
+        MOV DL, 7
+        INT 10H
         
-        LEA DX, R
+        LEA DX, R   ; RULE
         MOV AH, 9
         INT 21H
 
-            ; SET CURSOR
-            MOV AH, 2
-            MOV DH, 7
-            MOV DL, 7
-            INT 10H 
+        ; SET CURSOR
+        MOV AH, 2
+        MOV DH, 7
+        MOV DL, 7
+        INT 10H 
         
         LEA DX, R1   ; RULE 1
         MOV AH, 9
         INT 21H     
 
-            ; SET CURSOR 
-            MOV AH, 2
-            MOV DH, 8
-            MOV DL, 7
-            INT 10H 
+        ; SET CURSOR 
+        MOV AH, 2
+        MOV DH, 8
+        MOV DL, 7
+        INT 10H 
         
         LEA DX, R2   ; RULE 2
         MOV AH, 9
         INT 21H
     
-            ; SET CURSOR 
-            MOV AH, 2
-            MOV DH, 9
-            MOV DL, 7
-            INT 10H 
+        ; SET CURSOR 
+        MOV AH, 2
+        MOV DH, 9
+        MOV DL, 7
+        INT 10H 
         
         LEA DX, R3   ; RULE 3
         MOV AH, 9
         INT 21H
 
-            ; SET CURSOR
-            MOV AH, 2
-            MOV DH, 10
-            MOV DL, 7
-            INT 10H
+        ; SET CURSOR
+        MOV AH, 2
+        MOV DH, 10
+        MOV DL, 7
+        INT 10H
         
         LEA DX, R4   ; RULE 4
         MOV AH, 9
         INT 21H
   
-            ; SET CURSOR 
-            MOV AH, 2
-            MOV DH, 11
-            MOV DL, 7
-            INT 10H      
+        ; SET CURSOR 
+        MOV AH, 2
+        MOV DH, 11
+        MOV DL, 7
+        INT 10H      
         
         LEA DX, R5  ; RULE 5
         MOV AH, 9
         INT 21H
             
-            ; SET CURSOR
-            MOV AH, 2
-            MOV DH, 12
-            MOV DL, 7
-            INT 10H
+        ; SET CURSOR
+        MOV AH, 2
+        MOV DH, 12
+        MOV DL, 7
+        INT 10H
             
         LEA DX, R6
         MOV AH, 9
         INT 21H
            
-           ; SET CURSOR
-            MOV AH, 2
-            MOV DH, 13
-            MOV DL, 7
-            INT 10H
+        ; SET CURSOR
+        MOV AH, 2
+        MOV DH, 13
+        MOV DL, 7
+        INT 10H
              
-       LEA DX, R7
-       MOV AH, 9
-       INT 21H
+        LEA DX, R7
+        MOV AH, 9
+        INT 21H
             
-            ; SET CURSOR
-            MOV AH, 2
-            MOV DH, 15
-            MOV DL, 7
-            INT 10H     
+        ; SET CURSOR
+        MOV AH, 2
+        MOV DH, 15
+        MOV DL, 7
+        INT 10H     
         
         LEA DX, PAK ; PRESS ANY KEY
         MOV AH, 9
@@ -262,8 +257,9 @@ MAIN PROC
         
  ; ---------- INITIALIZE ---------------------
        
-       INIT:            
-            MOV PLAYER, 50     ; INITIALIZING ALL VARIABLES
+       INIT:
+            ; INITIALIZING ALL VARIABLES            
+            MOV PLAYER, 50
             MOV MOVES, 0  
             MOV DONE, 0
             MOV DR, 0 
@@ -297,11 +293,11 @@ MAIN PROC
             MOV AH, 9
             INT 21H
             
-                ; SET CURSOR 
-                MOV AH, 2
-                MOV DH, 17
-                MOV DL, 28 
-                INT 10H  
+            ; SET CURSOR 
+            MOV AH, 2
+            MOV DH, 18
+            MOV DL, 20 
+            INT 10H  
                 
             LEA DX, PAK  ; PRESS ANY KEY
             MOV AH, 9
@@ -319,11 +315,11 @@ MAIN PROC
             MOV AH, 9
             INT 21H 
         
-                    ; SET CURSOR 
-                MOV AH, 2
-                MOV DH, 17
-                MOV DL, 28 
-                INT 10H
+            ; SET CURSOR 
+            MOV AH, 2
+            MOV DH, 18
+            MOV DL, 20 
+            INT 10H
                 
             LEA DX, PAK ; PRESS ANY KEY
             MOV AH, 9
@@ -492,109 +488,119 @@ MAIN PROC
         ; SET CURSOR
         MOV AH, 2
         MOV BH, 0
-        MOV DH, 6
+        MOV DH, 5
         MOV DL, 30
         INT 10H   
         
-    LEA DX, L1
-    MOV AH, 9
-    INT 21H 
+        LEA DX, L1
+        MOV AH, 9
+        INT 21H 
      
         ; SET CURSOR 
         MOV AH, 2
-        MOV DH, 7
+        MOV DH, 6
         MOV DL, 30 
         INT 10H
     
-    MOV AH, 2
-    MOV DL, 32
-    INT 21H
+        MOV AH, 2
+        MOV DL, 32
+        INT 21H
 
 ; --------------------------------    
-    ; CELL 1 
-    
-    LEA DX, C1
-    MOV AH, 9
-    INT 21H 
-    
-    LEA DX, N1
-    MOV AH, 9
-    INT 21H
-    
-    ; CELL 2
-    
-    LEA DX, C2
-    MOV AH, 9
-    INT 21H
-    
-    LEA DX, N1
-    MOV AH, 9
-    INT 21H
-    
-    ; CELL 3
-    
-    LEA DX, C3
-    MOV AH, 9
-    INT 21H
+        ; CELL 1 
+        
+        LEA DX, C1
+        MOV AH, 9
+        INT 21H 
+        
+        LEA DX, N1
+        MOV AH, 9
+        INT 21H
+        
+        ; CELL 2
+        
+        LEA DX, C2
+        MOV AH, 9
+        INT 21H
+        
+        LEA DX, N1
+        MOV AH, 9
+        INT 21H
+        
+        ; CELL 3
+        
+        LEA DX, C3
+        MOV AH, 9
+        INT 21H
     
 ; ---------------------------------    
     
         ; SET CURSOR
         MOV AH, 2
+        MOV DH, 7
+        MOV DL, 30
+        INT 10H   
+        
+        LEA DX, L1
+        MOV AH, 9
+        INT 21H
+        
+        ; SET CURSOR
+        MOV AH, 2
         MOV DH, 8
         MOV DL, 30 
         INT 10H 
-     
-    LEA DX, L2
-    MOV AH, 9
-    INT 21H   
-
+         
+        LEA DX, L2
+        MOV AH, 9
+        INT 21H   
+    
         ; SET CURSOR
         MOV AH, 2
         MOV DH, 9
         MOV DL, 30 
         INT 10H
-    
-    LEA DX, L1
-    MOV AH, 9
-    INT 21H 
-    
+        
+        LEA DX, L1
+        MOV AH, 9
+        INT 21H 
+        
         ; SET CURSOR
         MOV AH, 2
         MOV DH, 10
         MOV DL, 30 
         INT 10H
-    
-    MOV AH, 2
-    MOV DL, 32
-    INT 21H
+        
+        MOV AH, 2
+        MOV DL, 32
+        INT 21H
     
 ; --------------------------------    
-    ; CELL 4 
-    
-    LEA DX, C4
-    MOV AH, 9
-    INT 21H 
-    
-    LEA DX, N1
-    MOV AH, 9
-    INT 21H
-    
-    ; CELL 5
-    
-    LEA DX, C5
-    MOV AH, 9
-    INT 21H
-    
-    LEA DX, N1
-    MOV AH, 9
-    INT 21H
-    
-    ; CELL 6
-    
-    LEA DX, C6
-    MOV AH, 9
-    INT 21H
+        ; CELL 4 
+        
+        LEA DX, C4
+        MOV AH, 9
+        INT 21H 
+        
+        LEA DX, N1
+        MOV AH, 9
+        INT 21H
+        
+        ; CELL 5
+        
+        LEA DX, C5
+        MOV AH, 9
+        INT 21H
+        
+        LEA DX, N1
+        MOV AH, 9
+        INT 21H
+        
+        ; CELL 6
+        
+        LEA DX, C6
+        MOV AH, 9
+        INT 21H
     
 ; ---------------------------------     
 
@@ -603,67 +609,67 @@ MAIN PROC
         MOV DH, 11
         MOV DL, 30 
         INT 10H
-        
-    LEA DX, L1
-    MOV AH, 9
-    INT 21H 
- 
+            
+        LEA DX, L1
+        MOV AH, 9
+        INT 21H 
+     
         ; SET CURSOR
         MOV AH, 2
         MOV DH, 12
         MOV DL, 30 
         INT 10H 
-    
-    LEA DX, L2
-    MOV AH, 9
-    INT 21H 
-    
+        
+        LEA DX, L2
+        MOV AH, 9
+        INT 21H 
+        
         ; SET CURSOR
         MOV AH, 2
         MOV DH, 13
         MOV DL, 30 
         INT 10H
+        
+        LEA DX, L1
+        MOV AH, 9
+        INT 21H 
     
-    LEA DX, L1
-    MOV AH, 9
-    INT 21H 
-
         ; SET CURSOR
         MOV AH, 2
         MOV DH, 14
         MOV DL, 30 
         INT 10H 
-    
-    MOV AH, 2
-    MOV DL, 32
-    INT 21H   
+        
+        MOV AH, 2
+        MOV DL, 32
+        INT 21H   
          
 ; --------------------------------    
-    ; CELL 4 
-    
-    LEA DX, C7
-    MOV AH, 9
-    INT 21H 
-    
-    LEA DX, N1
-    MOV AH, 9
-    INT 21H
-    
-    ; CELL 5
-    
-    LEA DX, C8
-    MOV AH, 9
-    INT 21H
-    
-    LEA DX, N1
-    MOV AH, 9
-    INT 21H
-    
-    ; CELL 6
-    
-    LEA DX, C9
-    MOV AH, 9
-    INT 21H
+        ; CELL 4 
+        
+        LEA DX, C7
+        MOV AH, 9
+        INT 21H 
+        
+        LEA DX, N1
+        MOV AH, 9
+        INT 21H
+        
+        ; CELL 5
+        
+        LEA DX, C8
+        MOV AH, 9
+        INT 21H
+        
+        LEA DX, N1
+        MOV AH, 9
+        INT 21H
+        
+        ; CELL 6
+        
+        LEA DX, C9
+        MOV AH, 9
+        INT 21H
     
 ; ---------------------------------     
 
@@ -672,22 +678,22 @@ MAIN PROC
         MOV DH, 15
         MOV DL, 30 
         INT 10H 
-     
-    LEA DX, L1
-    MOV AH, 9
-    INT 21H
-     
+         
+        LEA DX, L1
+        MOV AH, 9
+        INT 21H
+         
         ; SET CURSOR 
         MOV AH, 2
         MOV DH, 16
         MOV DL, 20 
         INT 10H
-    
-    CMP DONE, 1
-    JZ VICTORY
-    
-    CMP DR, 1
-    JZ DRAW
+        
+        CMP DONE, 1
+        JZ VICTORY
+        
+        CMP DR, 1
+        JZ DRAW
      
 ; ------------ END OF BOARD -------
         
@@ -732,8 +738,6 @@ MAIN PROC
     
     MOV CL, CUR 
     
-       
-    
     ; CHECKING IF INPUT IS BETWEEN 1-9
     CMP BL, 1
     JZ  C1U 
@@ -767,11 +771,11 @@ MAIN PROC
     
     DEC MOVES ; DECREMENTING MOVES BY 1, SINCE IT WAS INVALID
     
-        ; SET CURSOR 
-        MOV AH, 2
-        MOV DH, 16
-        MOV DL, 20 
-        INT 10H 
+    ; SET CURSOR 
+    MOV AH, 2
+    MOV DH, 16
+    MOV DL, 20 
+    INT 10H 
         
     LEA DX, WI  ; WRONG INPUT MESSAGE
     MOV AH, 9
@@ -780,31 +784,32 @@ MAIN PROC
     MOV AH, 7   ; INPUT WITHOUT ECHO
     INT 21H
     
-        ; SET CURSOR 
-        MOV AH, 2
-        MOV DH, 16
-        MOV DL, 20 
-        INT 10H
+    ; SET CURSOR 
+    MOV AH, 2
+    MOV DH, 16
+    MOV DL, 20 
+    INT 10H
         
     LEA DX, EMP  ; CLEARING THAT LINE
     MOV AH, 9
     INT 21H  
     
-        ; SET CURSOR 
-        MOV AH, 2
-        MOV DH, 16
-        MOV DL, 20 
-        INT 10H
+    ; SET CURSOR 
+    MOV AH, 2
+    MOV DH, 16
+    MOV DL, 20 
+    INT 10H
     
     JMP INPUT    
     
     TAKEN:
-        DEC MOVES
-            ; SET CURSOR 
-            MOV AH, 2
-            MOV DH, 16
-            MOV DL, 20 
-            INT 10H   
+        DEC MOVES   
+        
+        ; SET CURSOR 
+        MOV AH, 2
+        MOV DH, 16
+        MOV DL, 20 
+        INT 10H   
             
         LEA DX, TKN   ; DISPLAY THAT THE CELL IS TAKEN
         MOV AH, 9
@@ -813,21 +818,21 @@ MAIN PROC
         MOV AH, 7     ; INPUT WITHOUT ECHO
         INT 21H 
         
-            ; SET CURSOR 
-            MOV AH, 2
-            MOV DH, 16
-            MOV DL, 20 
-            INT 10H
+        ; SET CURSOR 
+        MOV AH, 2
+        MOV DH, 16
+        MOV DL, 20 
+        INT 10H
             
         LEA DX, EMP   ; EMPTY LINE TO OVERWRITE ANOTHER LINE TO CLEAN THE SPACE
         MOV AH, 9
         INT 21H 
         
-            ; SET CURSOR 
-            MOV AH, 2
-            MOV DH, 16
-            MOV DL, 20 
-            INT 10H
+        ; SET CURSOR 
+        MOV AH, 2
+        MOV DH, 16
+        MOV DL, 20 
+        INT 10H
         
         JMP INPUT
     
@@ -907,26 +912,23 @@ MAIN PROC
             
             MOV C9, CL
             JMP CHECK
-; --------------------------------            
-            
 
 ; ----------- TRY AGAIN -----------
 
     TRYAGAIN:
-            ; CLEAR SCREEN
-                        
-            MOV AX,0600H 
-            MOV BH,07H 
-            MOV CX,0000H 
-            MOV DX,184FH 
-            INT 10H  
+        ; CLEAR SCREEN               
+        MOV AX,0600H 
+        MOV BH,07H 
+        MOV CX,0000H 
+        MOV DX,184FH 
+        INT 10H  
             
-            ; SET CURSOR
-            MOV AH, 2
-            MOV BH, 0
-            MOV DH, 10
-            MOV DL, 24
-            INT 10H
+        ; SET CURSOR
+        MOV AH, 2
+        MOV BH, 0
+        MOV DH, 10
+        MOV DL, 24
+        INT 10H
     
         LEA DX, TRA   ; TRY AGAIN PROMPT
         MOV AH, 9 
@@ -949,16 +951,15 @@ MAIN PROC
         JZ EXIT  
         
         ; IF INPUT IS 'N'/'n' THEN EXIT THE GAME
-        
-        
+
         ; IF INPUT IS INVALID
         
-            ; SET CURSOR
-            MOV AH, 2
-            MOV BH, 0
-            MOV DH, 10
-            MOV DL, 24
-            INT 10H
+        ; SET CURSOR
+        MOV AH, 2
+        MOV BH, 0
+        MOV DH, 10
+        MOV DL, 24
+        INT 10H
         
         LEA DX, WI  ; WRONG INPUT MESSAGE
         MOV AH, 9
@@ -967,12 +968,12 @@ MAIN PROC
         MOV AH, 7 ; INPUT WITHOUT ECHO
         INT 21H
             
-            ; SET CURSOR
-            MOV AH, 2
-            MOV BH, 0
-            MOV DH, 10
-            MOV DL, 24
-            INT 10H
+        ; SET CURSOR
+        MOV AH, 2
+        MOV BH, 0
+        MOV DH, 10
+        MOV DL, 24
+        INT 10H
         
         LEA DX, EMP  ; EMPTY LINE TO OVERWRITE ANOTHER LINE TO CLEAN THE SPACE
         MOV AH, 9
