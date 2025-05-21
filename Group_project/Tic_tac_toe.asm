@@ -4,8 +4,8 @@
     T1 DB  4,  4, 4,  4,  4, 32,  4, 32,  4,  4,  4,  4, 32, 32, 32,  4,  4,  4, 4,  4, 32, 32,  4,  4, 32, 32,  4, 4,  4,  4,  32, 32, 32,   4,  4, 4,  4,  4,  32, 32,  4,   4, 32, 32, 4, 4, 4, 4, '$'
     T2 DB 32, 32, 4, 32, 32, 32,  4, 32,  4, 32, 32, 32, 32, 32, 32, 32, 32, 4, 32, 32, 32,  4, 32, 32,  4, 32,  4, 32, 32, 32, 32, 32, 32 , 32, 32, 4, 32, 32,  32,  4, 32,  32,  4, 32, 4,'$'
     T3 DB 32, 32, 4, 32, 32, 32,  4, 32,  4, 32, 32, 32, 32, 32, 32, 32, 32, 4, 32, 32, 32,  4,  4,  4,  4, 32,  4, 32, 32, 32, 32, 32, 32 , 32, 32, 4, 32, 32,  32,  4, 32,  32,  4, 32, 4, 4, 4, 4,'$' 
-    T4 DB 32, 32, 4, 32, 32, 32,  4, 32,  4,  4,  4,  4, 32,  4, 32, 32, 32, 4, 32, 32, 32,  4, 32, 32,  4, 32,  4,  4,  4,  4, 32,  4, 32 , 32, 32, 4, 32, 32,  32, 32,  4,   4, 32, 32, 4, 4, 4, 4,'$'
-    TAGLINE DB 'Developed by Hoang - Phong - Binh$'
+    T4 DB 32, 32, 4, 32, 32, 32,  4, 32,  4,  4,  4,  4, 32, 32, 32, 32, 32, 4, 32, 32, 32,  4, 32, 32,  4, 32,  4,  4,  4,  4, 32, 32, 32 , 32, 32, 4, 32, 32,  32, 32,  4,   4, 32, 32, 4, 4, 4, 4,'$'
+    TAGLINE DB 'Developed by Hoang Phong Binh$'
     PAK DB 'Press any key to continue...$'
     
     R DB 'Game Rules:$'
@@ -45,7 +45,7 @@
     DR DB 0 
     
     ; INPUT SECTION PROMTS -------------------------
-    INP DB 32, ':: Enter cell no. : $'
+    INP DB 32, ': Enter cell number: $'
     TKN DB 'This cell is taken! Press any key...$' 
     
     ; CURRENT MARK (X/O) ---------------------------
@@ -92,32 +92,26 @@ MAIN PROC
             MOV DL, 14
             INT 10H 
             
-           
-        
         LEA DX, T2
         MOV AH, 9
         INT 21H
-                         
-                          
+                                        
             ; SET CURSOR 
             MOV AH, 2
             MOV DH, 8
             MOV DL, 14
             INT 10H 
            
-        
         LEA DX, T3
         MOV AH, 9
         INT 21H
-                
-
+            
             ; SET CURSOR 
             MOV AH, 2
             MOV DH, 9
             MOV DL, 14
             INT 10H  
               
-        
         LEA DX, T2
         MOV AH, 9
         INT 21H
@@ -131,7 +125,6 @@ MAIN PROC
         LEA DX, T4
         MOV AH, 9
         INT 21H 
-            
         
         ; LOGO DISPLAY END -----------------
         
@@ -140,7 +133,6 @@ MAIN PROC
             MOV DH, 12
             MOV DL, 22
             INT 10H 
-            
         
         LEA DX, TAGLINE  ; DEVELOPER NAME DISPLAY
         MOV AH, 9
@@ -151,7 +143,6 @@ MAIN PROC
             MOV DH, 13
             MOV DL, 24
             INT 10H  
-         
         
         LEA DX, PAK  ; PRESS ANY KEY
         MOV AH, 9
@@ -168,14 +159,10 @@ MAIN PROC
             MOV DX,184FH 
             INT 10H 
             
-            
-            
             JMP RULES
 
-
 ; ----------- DISPLAY GAME RULES --------------
-                                               
-                                               
+                                                                               
     RULES:
             ; SET CURSOR
             MOV AH, 2
@@ -187,7 +174,6 @@ MAIN PROC
         LEA DX, R
         MOV AH, 9
         INT 21H
-        
 
             ; SET CURSOR
             MOV AH, 2
@@ -195,11 +181,9 @@ MAIN PROC
             MOV DL, 7
             INT 10H 
         
-        
         LEA DX, R1   ; RULE 1
         MOV AH, 9
-        INT 21H 
-        
+        INT 21H     
 
             ; SET CURSOR 
             MOV AH, 2
@@ -210,19 +194,16 @@ MAIN PROC
         LEA DX, R2   ; RULE 2
         MOV AH, 9
         INT 21H
-        
-
+    
             ; SET CURSOR 
             MOV AH, 2
             MOV DH, 9
             MOV DL, 7
             INT 10H 
         
-        
         LEA DX, R3   ; RULE 3
         MOV AH, 9
         INT 21H
-        
 
             ; SET CURSOR
             MOV AH, 2
@@ -230,30 +211,25 @@ MAIN PROC
             MOV DL, 7
             INT 10H
         
-        
         LEA DX, R4   ; RULE 4
         MOV AH, 9
         INT 21H
-        
   
             ; SET CURSOR 
             MOV AH, 2
             MOV DH, 11
             MOV DL, 7
             INT 10H      
-            
         
         LEA DX, R5  ; RULE 5
         MOV AH, 9
         INT 21H
-        
             
             ; SET CURSOR
             MOV AH, 2
             MOV DH, 12
             MOV DL, 7
             INT 10H
-            
             
         LEA DX, R6
         MOV AH, 9
@@ -283,13 +259,10 @@ MAIN PROC
         INT 21H 
         
  ; ---------- DISPLAY GAME RULES END ---------
- 
-        
         
  ; ---------- INITIALIZE ---------------------
        
-       INIT: 
-           
+       INIT:            
             MOV PLAYER, 50     ; INITIALIZING ALL VARIABLES
             MOV MOVES, 0  
             MOV DONE, 0
@@ -308,15 +281,10 @@ MAIN PROC
             JMP PLRCHANGE
 
 ; ---------- INITIALIZATION ENDS --------------
-
-            
-            
-                       
+           
 ; ------------ VICTORY ------------------------
 
-    VICTORY:
-    
-            
+    VICTORY:            
             LEA DX, W1
             MOV AH, 9
             INT 21H
@@ -343,17 +311,14 @@ MAIN PROC
             INT 21H    
             
             JMP TRYAGAIN 
-            
-            
+
 ; ------------ DRAW ------------  
 
     DRAW:
             LEA DX, DRW
             MOV AH, 9
             INT 21H 
-            
-            
-            
+        
                     ; SET CURSOR 
                 MOV AH, 2
                 MOV DH, 17
@@ -368,8 +333,6 @@ MAIN PROC
             INT 21H    
             
             JMP TRYAGAIN                      
-
-
 
 ; ------------ CHECK IF WINNING CONDITION IS MET -----------
 
@@ -400,11 +363,9 @@ MAIN PROC
             CMP BL, CL
             JNZ CHECK3
             
-          
             MOV DONE, 1
             JMP BOARD
-            
-           
+                
        CHECK3:  ; CHECKING 7, 8, 9
             MOV AL, C4
             MOV BL, C5 
@@ -417,8 +378,7 @@ MAIN PROC
             JNZ CHECK4 
             
             MOV DONE, 1
-            JMP BOARD
-            
+            JMP BOARD    
              
        CHECK4:   ; CHECKING 1, 4, 7
             MOV AL, C1
@@ -433,7 +393,6 @@ MAIN PROC
         
             MOV DONE, 1
             JMP BOARD
-        
        
        CHECK5:   ; CHECKING 2, 5, 8
             MOV AL, C2
@@ -449,7 +408,6 @@ MAIN PROC
             MOV DONE, 1
             JMP BOARD
             
-       
        CHECK6:   ; CHECKING 3, 6, 9
             MOV AL, C3
             MOV BL, C6 
@@ -464,7 +422,6 @@ MAIN PROC
             MOV DONE, 1
             JMP BOARD
             
-        
         CHECK7:   ; CHECKING 1, 5, 9
             MOV AL, C1
             MOV BL, C5 
@@ -478,8 +435,7 @@ MAIN PROC
         
             MOV DONE, 1
             JMP BOARD  
-            
-        
+             
         CHECK8:   ; CHECKING 3, 5, 7
             MOV AL, C3
             MOV BL, C5 
@@ -503,7 +459,6 @@ MAIN PROC
             JMP BOARD
             
             JMP EXIT
-       
 
 ; ------------ PLAYER ----------        
     PLRCHANGE:
@@ -516,16 +471,13 @@ MAIN PROC
         P1:
             MOV PLAYER, 49
             MOV CUR, 88
-            
-            
-            
+              
             JMP BOARD
              
         P2:
             MOV PLAYER, 50
             MOV CUR, 79
             JMP BOARD
-
 
 ; ------------- BOARD ----------   
     BOARD: 
@@ -587,18 +539,15 @@ MAIN PROC
     
 ; ---------------------------------    
     
-
         ; SET CURSOR
         MOV AH, 2
         MOV DH, 8
         MOV DL, 30 
         INT 10H 
      
-    
     LEA DX, L2
     MOV AH, 9
-    INT 21H 
-    
+    INT 21H   
 
         ; SET CURSOR
         MOV AH, 2
@@ -664,13 +613,11 @@ MAIN PROC
         MOV DH, 12
         MOV DL, 30 
         INT 10H 
-     
     
     LEA DX, L2
     MOV AH, 9
     INT 21H 
     
-
         ; SET CURSOR
         MOV AH, 2
         MOV DH, 13
@@ -680,7 +627,6 @@ MAIN PROC
     LEA DX, L1
     MOV AH, 9
     INT 21H 
-    
 
         ; SET CURSOR
         MOV AH, 2
@@ -691,7 +637,6 @@ MAIN PROC
     MOV AH, 2
     MOV DL, 32
     INT 21H   
-    
          
 ; --------------------------------    
     ; CELL 4 
@@ -728,7 +673,6 @@ MAIN PROC
         MOV DL, 30 
         INT 10H 
      
-    
     LEA DX, L1
     MOV AH, 9
     INT 21H
@@ -739,7 +683,6 @@ MAIN PROC
         MOV DL, 20 
         INT 10H
     
-    
     CMP DONE, 1
     JZ VICTORY
     
@@ -747,9 +690,6 @@ MAIN PROC
     JZ DRAW
      
 ; ------------ END OF BOARD -------
- 
-    
-
         
 ; ------------ INPUT --------------
 
@@ -784,8 +724,6 @@ MAIN PROC
     
     MOV AH, 1
     INT 21H 
-    
-   
     
     INC MOVES ; INCREMENTING MOVES COUNTER BY 1
      
@@ -825,7 +763,6 @@ MAIN PROC
     JZ  C9U  
     ;---------------------------------
     
-    
     ; IF INPUT IS INVALID
     
     DEC MOVES ; DECREMENTING MOVES BY 1, SINCE IT WAS INVALID
@@ -859,8 +796,7 @@ MAIN PROC
         MOV DL, 20 
         INT 10H
     
-    JMP INPUT
-    
+    JMP INPUT    
     
     TAKEN:
         DEC MOVES
@@ -894,9 +830,6 @@ MAIN PROC
             INT 10H
         
         JMP INPUT
-        
-        
-    
     
     ; ADJUST 
     
@@ -994,8 +927,6 @@ MAIN PROC
             MOV DH, 10
             MOV DL, 24
             INT 10H
-        
-        
     
         LEA DX, TRA   ; TRY AGAIN PROMPT
         MOV AH, 9 
@@ -1047,10 +978,7 @@ MAIN PROC
         MOV AH, 9
         INT 21H
         
-        
-        
         JMP TRYAGAIN ; PROMPT THE TRY AGAIN     
-    
 
 ; ----------- END OF INPUT -------- 
 
