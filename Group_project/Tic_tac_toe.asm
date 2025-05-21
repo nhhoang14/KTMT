@@ -77,7 +77,7 @@ MAIN PROC
          
             ; SET CURSOR
             MOV AH, 2
-            MOV BH, 0
+            ;MOV BH, 0
             MOV DH, 6
             MOV DL, 14
             INT 10H 
@@ -367,9 +367,9 @@ MAIN PROC
             JMP BOARD
                 
        CHECK3:  ; CHECKING 7, 8, 9
-            MOV AL, C4
-            MOV BL, C5 
-            MOV CL, C6
+            MOV AL, C7
+            MOV BL, C8 
+            MOV CL, C9
             
             CMP AL, BL
             JNZ CHECK4
