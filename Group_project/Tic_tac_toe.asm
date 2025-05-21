@@ -937,20 +937,19 @@ MAIN PROC
         MOV AH, 1     
         INT 21H
         
+        ; IF INPUT IS 'Y'/'y' THEN REPEAT THE GAME
+        
         CMP AL, 121  ; CHECK IF INPUT IS 'y'
         JZ INIT 
-        
         CMP AL, 89   ; CHECK IF INPUT IS 'Y'
         JZ INIT
         
-        ; IF INPUT IS 'Y'/'y' THEN REPEAT THE GAME
+        ; IF INPUT IS 'N'/'n' THEN EXIT THE GAME
         
         CMP AL, 110  ; CHECK IF INPUT IS 'n'
         JZ EXIT
         CMP AL, 78   ; CHECK IF INPUT IS 'N'
-        JZ EXIT  
-        
-        ; IF INPUT IS 'N'/'n' THEN EXIT THE GAME
+        JZ EXIT
 
         ; IF INPUT IS INVALID
         
