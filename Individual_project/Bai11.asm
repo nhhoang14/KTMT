@@ -11,46 +11,44 @@
         MOV AX, @DATA
         MOV DS, AX
                    
-        MOV CX, 9              ; s? ph?n t? trong m?ng
-        LEA SI, list           ; SI tr? d?n d?u m?ng
-        MOV AL, [SI]           ; l?y ph?n t? d?u tiên
+        MOV CX, 9 ; So phan tu trong mang
+        LEA SI, list ; SI tro den dau mang
+        MOV AL, [SI] ; Lay phan tu dau tien
         MOV MAX, AL
         MOV MIN, AL
-        INC SI                 ; tr? d?n ph?n t? ti?p theo
-        DEC CX                 ; dã x? lý 1 ph?n t? d?u tiên nên gi?m CX
+        INC SI   ; Tro den phan tu tiep theo
+        DEC CX ; Da xu ly 1 phan tu dau tien nen giam CX
     
     Start:
-        LODSB                  ; n?p ph?n t? ti?p theo vào AL và tang SI
+        LODSB  ; Nap phan tu tiep theo vao AL va tang SI
         CMP AL, MAX
         JLE SkipMax
         MOV MAX, AL
     SkipMax:
-    
         CMP AL, MIN
         JGE SkipMin
         MOV MIN, AL
     SkipMin:
-    
         LOOP Start
-    
-        ; In chu?i TB1
+
+        ; In TB1
         LEA DX, TB1
         MOV AH, 9
         INT 21H
     
-        ; In MAX (chuy?n sang ký t?)
+        ; In MAX (chuyen sang ky tu)
         MOV AL, MAX
         ADD AL, '0'
         MOV DL, AL
         MOV AH, 2
         INT 21H
     
-        ; Xu?ng dòng + in chu?i TB2
+        ; In chuoi TB2
         LEA DX, TB2
         MOV AH, 9
         INT 21H
     
-        ; In MIN (chuy?n sang ký t?)
+        ; In MIN (chuyen sang ky tu)
         MOV AL, MIN
         ADD AL, '0'
         MOV DL, AL
