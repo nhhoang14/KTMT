@@ -1,0 +1,251 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese]{babel}
+\usepackage[top = 1cm, left = 1in]{geometry}
+\usepackage{amsfonts, amsmath, amsthm, amssymb}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegray}{rgb}{0.95,0.95,0.95}
+
+\lstset{
+  backgroundcolor=\color{codegray},
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  frame=single,
+  captionpos=b,
+  tabsize=2,
+  language=[x86masm]Assembler,
+  morecomment=[l]{;},
+  showspaces=false,
+  showstringspaces=false
+}
+
+\begin{document}
+\title{\textbf{Bài tập lớn Kiến trúc máy tính}}
+\author{Nguyễn Huy Hoàng - B23DCCN336}
+\date{May 2025}
+
+\maketitle
+\section{Bài tập cá nhân}
+
+\subsection{Viết chương trình hợp ngữ Assembly}
+
+\subsubsection{Nhập 1 ký tự và in ra màn hình ký tự đó}
+
+\begin{lstlisting}[caption={Nhập 1 ký tự và in ra màn hình ký tự đó}]
+.MODEL SMALL
+.STACK 100H
+.DATA
+    TB1 DB 'Hay nhap mot ky tu: $'      ; Khai bao TB1
+    TB2 DB 13,10,'Ky tu da nhap: $'     ; Khai bao TB2
+    OUTPUT DB ?                         ; Khai bao bien KyTu chua co gia tri
+.CODE
+MAIN PROC
+    ; Khoi tao thanh ghi DS
+    MOV AX, @DATA
+    MOV DS, AX
+
+    ; In ra man hinh xau TB1
+    LEA DX, TB1
+    MOV AH, 9
+    INT 21H
+
+    ; Nhap 1 ky tu tu ban phim
+    MOV AH, 1
+    INT 21H
+    MOV OUTPUT, AL
+
+    ; In ra man hinh xau TB2
+    LEA DX, TB2
+    MOV AH, 9
+    INT 21H
+
+    ; Hien thi ky tu vua nhap
+    MOV AH, 2
+    MOV DL, OUTPUT
+    INT 21H
+
+    ; Ket thuc chuong trinh
+    MOV AH, 4CH
+    INT 21H
+MAIN ENDP
+END MAIN
+\end{lstlisting}
+\newpage
+
+\subsubsection{Đếm chiều dài của một chuỗi ký tự cho trước}
+
+\begin{lstlisting}[caption={Đếm chiều dài của một chuỗi ký tự cho trước}]
+.Model Small
+.Stack 100H
+.Data
+    TB1 DB 'Chuoi ban dau la: Kien truc may tinh'  ; Khai bao TB1
+    TB2 DB 13,10,'Tong chieu dai cua chuoi: $'  ; Khai bao TB2
+    S   DB 'Kien truc may tinh$' ; Chuoi can dem
+.Code
+    MAIN Proc
+        ; Khoi tao cho thanh ghi DS
+        MOV AX, @DATA
+        MOV DS, AX
+        
+        ; In ra man hinh xau TB1
+        LEA DX, TB1
+        MOV AH, 9  
+        INT 21H
+        
+        ; In ra man hinh xau TB2
+        LEA DX, TB2
+        MOV AH, 9
+        INT 21H
+        
+        ; Tinh chieu dau chuoi
+        XOR AX, AX
+        MOV AL, S+1 ; Chuyen chieu dai chuoi vao AX 
+        MOV CX, 0   ; Khoi tao bien dem (count)
+        MOV BX, 10  ; Khoi tao so chia
+        
+    PushLoop:    ; Day cac so vao ngan xep
+        MOV DX, 0   ; Khoi tao phan du bang 0
+        DIV BX  ; Chia 10
+        PUSH DX ; Lay DX la phan du day vao ngan xep
+        INC CX  ; Tang CX len 1 don vi
+        CMP AX, 0   ; So sanh AX phan thuong (khac 0 thi tiep tuc vong lap)
+        JNZ PushLoop ; Jump not zero  
+        
+    PrintLoop:    ; Lay cac so tu ngan xep ra
+        POP DX  ; Chua so du trong phep chia  
+        ADD DX, '0' ; Chuyen chu so -> ky tu so
+        MOV AH, 2
+        INT 21H
+        LOOP PrintLoop
+        
+        ; Ket thuc tro ve chuong trinh goi
+        MOV AH, 4CH
+        INT 21H
+    MAIN Endp
+END MAIN
+\end{lstlisting}
+\newpage
+
+\subsubsection{Tìm giá trị lớn nhất và nhỏ nhất của một mảng số}
+
+\begin{lstlisting}[caption={Tìm giá trị lớn nhất và nhỏ nhất của một mảng số}]
+.Model small
+.Stack 100H
+.Data
+    TB1 DB 'Gia tri lon nhat cua mang: $'
+    TB2 DB 13,10,'Gia tri nho nhat cua mang: $'                
+    list DB 1,2,3,4,5,6,7,8,0
+    MIN DB ?
+    MAX DB ?   
+.Code
+    MAIN Proc           
+        MOV AX, @DATA
+        MOV DS, AX
+                   
+        MOV CX, 9 ; So phan tu trong mang
+        LEA SI, list ; SI tro den dau mang
+        MOV AL, [SI] ; Lay phan tu dau tien
+        MOV MAX, AL
+        MOV MIN, AL
+        INC SI   ; Tro den phan tu tiep theo
+        DEC CX ; Da xu ly 1 phan tu dau tien nen giam CX
+    
+    Start:
+        LODSB  ; Nap phan tu tiep theo vao AL va tang SI
+        CMP AL, MAX
+        JLE SkipMax
+        MOV MAX, AL
+    SkipMax:
+    
+        CMP AL, MIN
+        JGE SkipMin
+        MOV MIN, AL
+    SkipMin:
+    
+        LOOP Start
+    
+        ; In TB1
+        LEA DX, TB1
+        MOV AH, 9
+        INT 21H
+    
+        ; In MAX (chuyen sang ky tu)
+        MOV AL, MAX
+        ADD AL, '0'
+        MOV DL, AL
+        MOV AH, 2
+        INT 21H
+    
+        ; In chuoi TB2
+        LEA DX, TB2
+        MOV AH, 9
+        INT 21H
+    
+        ; In MIN (chuyen sang ky tu)
+        MOV AL, MIN
+        ADD AL, '0'
+        MOV DL, AL
+        MOV AH, 2
+        INT 21H
+    
+        ; Ket thuc chuong trinh
+        MOV AH, 4CH
+        INT 21H
+    MAIN Endp
+END MAIN
+\end{lstlisting}
+\newpage
+
+\subsection{Thực hành phân tích khảo sát hệ thống bộ nhớ}
+
+\subsubsection{ Khảo sát cấu hình của máy và hệ thống bộ nhớ của máy đang sử dụng (Bộ nhớ trong: ROM, RAM, Cache System, Bộ nhớ ngoài: ổ đĩa
+cứng, CD, Thiết bị vào ra.)}
+\newpage
+\section{Bài tập nhóm: Traffic light system}
+
+\begin{lstlisting}[caption={Traffic light system}]
+#start=Traffic_Lights.exe#
+
+name "traffic"
+
+MOV AX, all_red
+OUT 4, AX
+
+MOV SI, offset situation
+
+next:
+MOV AX, [SI]
+OUT 4, AX
+
+; wait 1 seconds (1 million microseconds)
+MOV cx, 0FH ; 004C4B40h = 5,000,000
+MOV dx, 4240H
+MOV ah, 86H
+INT 15H   
+
+MOV cx, 0FH ; 004C4B40h = 5,000,000
+MOV dx, 4240H
+MOV ah, 86H
+INT 15H
+
+ADD SI, 2   ; next situation
+CMP SI, sit_end
+JB  next
+MOV SI, offset situation
+JMP next
+
+; FEDC_BA98_7654_3210
+situation dw 0000_0011_0000_1100b
+s1 dw 0000_0110_1001_1010b
+s2 dw 0000_1000_0110_0001b
+s3 dw 0000_1000_0110_0001b
+s4 dw 0000_0100_1101_0011b
+sit_end = $
+
+all_red equ 0000_0010_0100_1001b
+
+\end{lstlisting}
+
+\end{document}
