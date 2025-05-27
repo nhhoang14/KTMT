@@ -11,7 +11,6 @@ next:
 MOV AX, [SI]
 OUT 4, AX
 
-; wait 1 seconds (1 million microseconds)
 MOV cx, 0FH ; 004C4B40h = 5,000,000
 MOV dx, 4240H
 MOV ah, 86H
