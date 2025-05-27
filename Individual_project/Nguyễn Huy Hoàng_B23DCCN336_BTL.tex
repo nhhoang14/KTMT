@@ -1,11 +1,16 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage[vietnamese]{babel}
-\usepackage[top = 1cm, left = 1in]{geometry}
+\usepackage[top=1cm, left=0.8in, right=0.8in]{geometry}
 \usepackage{amsfonts, amsmath, amsthm, amssymb}
 \usepackage{listings}
 \usepackage{color}
-
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{enumitem}
+\renewcommand{\lstlistingname}{Code}
 \definecolor{codegray}{rgb}{0.95,0.95,0.95}
 
 \lstset{
@@ -33,6 +38,24 @@
 
 \subsubsection{Nhập 1 ký tự và in ra màn hình ký tự đó}
 
+\begin{itemize}
+\item[--]\textbf{Trạng thái khi chạy chương trình:}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{img/bai02.png}
+    \caption{Giao diện trước khi nhập ký tự}
+    \label{fig:before_input}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{img/bai02(1).png}
+    \caption{Giao diện khi đã nhập ký tự}
+    \label{fig:after_input}
+\end{figure}
+\newpage
+\item[--]\textbf{Code:}
 \begin{lstlisting}[caption={Nhập 1 ký tự và in ra màn hình ký tự đó}]
 .MODEL SMALL
 .STACK 100H
@@ -41,95 +64,130 @@
     TB2 DB 13,10,'Ky tu da nhap: $'     ; Khai bao TB2
     OUTPUT DB ?                         ; Khai bao bien KyTu chua co gia tri
 .CODE
-MAIN PROC
-    ; Khoi tao thanh ghi DS
-    MOV AX, @DATA
-    MOV DS, AX
-
-    ; In ra man hinh xau TB1
-    LEA DX, TB1
-    MOV AH, 9
-    INT 21H
-
-    ; Nhap 1 ky tu tu ban phim
-    MOV AH, 1
-    INT 21H
-    MOV OUTPUT, AL
-
-    ; In ra man hinh xau TB2
-    LEA DX, TB2
-    MOV AH, 9
-    INT 21H
-
-    ; Hien thi ky tu vua nhap
-    MOV AH, 2
-    MOV DL, OUTPUT
-    INT 21H
-
-    ; Ket thuc chuong trinh
-    MOV AH, 4CH
-    INT 21H
-MAIN ENDP
-END MAIN
-\end{lstlisting}
-\newpage
-
-\subsubsection{Đếm chiều dài của một chuỗi ký tự cho trước}
-
-\begin{lstlisting}[caption={Đếm chiều dài của một chuỗi ký tự cho trước}]
-.Model Small
-.Stack 100H
-.Data
-    TB1 DB 'Chuoi ban dau la: Kien truc may tinh'  ; Khai bao TB1
-    TB2 DB 13,10,'Tong chieu dai cua chuoi: $'  ; Khai bao TB2
-    S   DB 'Kien truc may tinh$' ; Chuoi can dem
-.Code
-    MAIN Proc
-        ; Khoi tao cho thanh ghi DS
+    MAIN PROC
+        ; Khoi tao thanh ghi DS
         MOV AX, @DATA
         MOV DS, AX
-        
+    
         ; In ra man hinh xau TB1
         LEA DX, TB1
-        MOV AH, 9  
+        MOV AH, 9
         INT 21H
-        
+    
+        ; Nhap 1 ky tu tu ban phim
+        MOV AH, 1
+        INT 21H
+        MOV OUTPUT, AL
+    
         ; In ra man hinh xau TB2
         LEA DX, TB2
         MOV AH, 9
         INT 21H
+    
+        ; Hien thi ky tu vua nhap
+        MOV AH, 2
+        MOV DL, OUTPUT
+        INT 21H
+    
+        ; Ket thuc chuong trinh
+        MOV AH, 4CH
+        INT 21H
+    MAIN ENDP
+END MAIN
+\end{lstlisting}
+\end{itemize}
+
+\subsubsection{Đếm chiều dài của một chuỗi ký tự cho trước}
+
+\begin{itemize}
+\item[--]\textbf{Trạng thái khi chạy chương trình:}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{img/bai10.png}
+    \caption{Giao diện khi chạy chương trình}
+    \label{fig:before_input}
+\end{figure}
+\newpage
+\item[--]\textbf{Code:}
+\begin{lstlisting}[caption={Đếm chiều dài của một chuỗi ký tự cho trước}]
+.MODEL SMALL
+.STACK 100H
+.DATA
+    TB1 DB 'Chuoi ban dau la: Kien truc may tinh$'
+    TB2 DB 13,10,'Tong chieu dai cua chuoi: $'
+    S   DB 'Kien truc may tinh$'
+.CODE
+    MAIN PROC
+        ; Khoi tao cho thanh ghi DS
+        MOV AX, @DATA
+        MOV DS, AX
+    
+        ; In ra man hinh xau TB1
+        LEA DX, TB1
+        MOV AH, 9
+        INT 21H
         
-        ; Tinh chieu dau chuoi
-        XOR AX, AX
-        MOV AL, S+1 ; Chuyen chieu dai chuoi vao AX 
-        MOV CX, 0   ; Khoi tao bien dem (count)
-        MOV BX, 10  ; Khoi tao so chia
-        
-    PushLoop:    ; Day cac so vao ngan xep
-        MOV DX, 0   ; Khoi tao phan du bang 0
-        DIV BX  ; Chia 10
-        PUSH DX ; Lay DX la phan du day vao ngan xep
-        INC CX  ; Tang CX len 1 don vi
-        CMP AX, 0   ; So sanh AX phan thuong (khac 0 thi tiep tuc vong lap)
-        JNZ PushLoop ; Jump not zero  
-        
-    PrintLoop:    ; Lay cac so tu ngan xep ra
-        POP DX  ; Chua so du trong phep chia  
-        ADD DX, '0' ; Chuyen chu so -> ky tu so
+        ; Tinh chieu dai chuoi S (dem so ky tu truoc dau $)
+        LEA SI, S
+        MOV CX, 0   ; CX se dem do dai
+    
+    CountLoop:
+        MOV AL, [SI]
+        CMP AL, '$' ; Neu gap ky tu ket thuc thi dung
+        JE DoneCounting
+        INC CX
+        INC SI
+        JMP CountLoop
+    
+    DoneCounting:
+        ; In ra man hinh xau TB2
+        LEA DX, TB2
+        MOV AH, 9
+        INT 21H
+    
+        ; In so ky tu (CX chua do dai chuoi)
+        MOV AX, CX
+        MOV BX, 10
+        XOR CX, CX
+    
+    PushLoop:
+        XOR DX, DX
+        DIV BX
+        PUSH DX
+        INC CX
+        CMP AX, 0
+        JNZ PushLoop
+    
+    PrintLoop:
+        POP DX
+        ADD DL, '0'
         MOV AH, 2
         INT 21H
         LOOP PrintLoop
-        
-        ; Ket thuc tro ve chuong trinh goi
+    
+        ; Ket thuc chuong trinh
         MOV AH, 4CH
         INT 21H
-    MAIN Endp
+    MAIN ENDP
 END MAIN
 \end{lstlisting}
+\end{itemize}
 \newpage
 
 \subsubsection{Tìm giá trị lớn nhất và nhỏ nhất của một mảng số}
 
+\begin{itemize}
+\item[--]\textbf{Trạng thái khi chạy chương trình:}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{img/bai11.png}
+    \caption{Giao diện khi chạy chương trình}
+    \label{fig:before_input}
+\end{figure}
+
+\item[--]\textbf{Code:}
 \begin{lstlisting}[caption={Tìm giá trị lớn nhất và nhỏ nhất của một mảng số}]
 .Model small
 .Stack 100H
@@ -140,30 +198,29 @@ END MAIN
     MIN DB ?
     MAX DB ?   
 .Code
-    MAIN Proc           
+    MAIN Proc
+        ; Khoi tao cho thanh ghi DS
         MOV AX, @DATA
         MOV DS, AX
                    
-        MOV CX, 9 ; So phan tu trong mang
-        LEA SI, list ; SI tro den dau mang
-        MOV AL, [SI] ; Lay phan tu dau tien
-        MOV MAX, AL
-        MOV MIN, AL
-        INC SI   ; Tro den phan tu tiep theo
-        DEC CX ; Da xu ly 1 phan tu dau tien nen giam CX
+        MOV CX, 9   ; So phan tu trong mang
+        LEA SI, list    ; SI tro den dau mang
+        MOV AL, [SI]    ; Lay phan tu dau tien
+        MOV MAX, AL ; Gan MAX = phan tu dau tien
+        MOV MIN, AL ; Gan MIN = phan tu dau tien
+        INC SI  ; Tro den phan tu tiep theo
+        DEC CX  ; Da xu ly 1 phan tu dau tien nen giam CX
     
     Start:
-        LODSB  ; Nap phan tu tiep theo vao AL va tang SI
+        LODSB   ; Nap phan tu tiep theo vao AL va tang SI
         CMP AL, MAX
         JLE SkipMax
         MOV MAX, AL
     SkipMax:
-    
         CMP AL, MIN
         JGE SkipMin
         MOV MIN, AL
     SkipMin:
-    
         LOOP Start
     
         ; In TB1
@@ -177,6 +234,8 @@ END MAIN
         MOV DL, AL
         MOV AH, 2
         INT 21H
+
+
     
         ; In chuoi TB2
         LEA DX, TB2
@@ -196,12 +255,121 @@ END MAIN
     MAIN Endp
 END MAIN
 \end{lstlisting}
-\newpage
+\end{itemize}
 
 \subsection{Thực hành phân tích khảo sát hệ thống bộ nhớ}
 
-\subsubsection{ Khảo sát cấu hình của máy và hệ thống bộ nhớ của máy đang sử dụng (Bộ nhớ trong: ROM, RAM, Cache System, Bộ nhớ ngoài: ổ đĩa
-cứng, CD, Thiết bị vào ra.)}
+\subsubsection{Khảo sát cấu hình của máy và hệ thống bộ nhớ của máy đang sử dụng (Bộ nhớ trong: ROM, RAM, Cache System, Bộ nhớ ngoài: ổ đĩa cứng, CD, Thiết bị vào ra)}
+
+ \begin{itemize}
+    \item[--]\textbf{Sử dụng phần mềm CPU-Z Ver 2.15.0.x64:} CPU Intel Core i5 3740 kiến trúc Ivy Bridge (4 cores/ 4 threads)
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{img/CPU-Z.png}
+    \caption{Giao diện CPU-Z}
+    \label{fig:before_input}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/RAM.png}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/RAM(1).png}
+    \end{subfigure}
+    \caption{Giao diện Ram (gồm 2 thanh RAM 4 GB DDR3 rời có thể nâng cấp)}
+    \label{fig:before_input}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{img/Cache.png}
+    \caption{Giao diện Cache (7.25MB)}
+    \label{fig:before_input}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{img/Device.png}
+    \caption{CD, Disk}
+    \label{fig:before_input}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{img/Device.png}
+    \caption{Thiết bị đầu vào}
+    \label{fig:before_input}
+\end{figure}
+
+
+\subsubsection{Dùng công cụ Debug khảo sát nội dung các thanh ghi IP, DS, ES, SS, CS, BP, SP)}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{img/debug.png}
+    \caption{Dùng Debug khảo sát nội dung các thanh ghi}
+    \label{fig:before_input}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/debug(1).png}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.7\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/debug(2).png}
+    \end{subfigure}
+    \caption{Debug mã nguồn Chương trình 1.1.1 - Nhập 1 ký tự và in ra màn hình ký tự đó}
+    \label{fig:before_input}
+\end{figure}
+
+\subsubsection{Giải thích nội dung các thanh ghi, trên cơ sở đó giải thích cơ chế quản lý bộ nhớ của hệ thống trong trường hợp cụ thể này(Chương trình 1.1.1 - Nhập 1 ký tự và in ra màn hình ký tự đó)}
+
+\begin{itemize}
+    \item[--] \textbf{Phân tích nội dung các thanh ghi từ Debug:}
+    \begin{itemize}[label=$+$]
+        \item \textbf{IP (Instruction Pointer):} Thanh ghi IP chứa địa chỉ của lệnh tiếp theo sẽ được thực thi. Trong hình Debug, IP bắt đầu từ \texttt{F409:0204} và thay đổi khi chương trình tiến hành (ví dụ: \texttt{F409:021B}, \texttt{F409:0271}). Điều này phản ánh việc CPU trỏ đến các lệnh như \texttt{MOV}, \texttt{INT}, và \texttt{LEA} trong đoạn mã Assembly để thực thi tuần tự, bắt đầu từ địa chỉ \texttt{0100h} (điểm nhập của chương trình).
+
+        \item \textbf{DS (Data Segment):} Thanh ghi DS chứa địa chỉ của đoạn dữ liệu, được khởi tạo bằng \texttt{MOV AX, @DATA} và sau đó gán vào DS. Trong debug, DS có giá trị như \texttt{0720h}, trỏ đến khu vực bộ nhớ chứa các biến \texttt{TB1}, \texttt{TB2}, và \texttt{OUTPUT}. Giá trị này cho phép chương trình truy cập dữ liệu tĩnh.
+
+        \item \textbf{ES (Extra Segment):} Thanh ghi ES thường được sử dụng cho các thao tác đặc biệt (như di chuyển chuỗi), nhưng trong chương trình này, ES không được sử dụng trực tiếp. Giá trị ES (\texttt{0790h} trong debug) có thể giống DS nếu không có thay đổi, cho thấy nó không tham gia vào logic chính.
+
+        \item \textbf{SS (Stack Segment):} Thanh ghi SS chứa địa chỉ của đoạn stack, được thiết lập mặc định khi chương trình khởi động với \texttt{.STACK 100H} (256 byte). Trong debug, SS là \texttt{0710h}, và SP (\texttt{09FAh}) trỏ đến đỉnh stack, nơi lưu trữ các giá trị tạm thời (như trong các lệnh \texttt{PUSH} hoặc \texttt{POP} nếu có).
+
+        \item \textbf{CS (Code Segment):} Thanh ghi CS chứa địa chỉ của đoạn mã, nơi lưu trữ các lệnh thực thi. Trong debug, CS là \texttt{0723h}, và kết hợp với IP, nó trỏ đến khu vực mã lệnh như \texttt{MOV AX, @DATA} hoặc \texttt{INT 21H}.
+
+        \item \textbf{BP (Base Pointer):} Thanh ghi BP thường dùng làm con trỏ cơ sở cho stack frame, nhưng trong chương trình này, nó không được sử dụng rõ ràng. Giá trị BP (\texttt{0000h} trong một số bước) có thể là mặc định, không thay đổi trong quá trình thực thi.
+
+        \item \textbf{SP (Stack Pointer):} Thanh ghi SP trỏ đến đỉnh của stack. Trong debug, SP thay đổi (ví dụ: từ \texttt{09FAh} đến \texttt{B401h}), phản ánh việc stack được sử dụng để lưu trữ tạm thời khi thực thi các lệnh như \texttt{INT 21H} (gọi hàm BIOS).
+
+        \item \textbf{AX, BX, CX, DX (Thanh ghi tổng quát):} \texttt{AX} chứa dữ liệu tạm thời, ví dụ \texttt{0720h} khi gán DS, hoặc \texttt{0000h} sau khi khởi tạo. \texttt{DX} được dùng để lưu offset của \texttt{TB1} và \texttt{TB2} (ví dụ: \texttt{D21h} khi \texttt{LEA DX, TB1}). \texttt{CX} và \texttt{DX} cũng được sử dụng trong các lệnh delay (nếu có trong chương trình khác).
+
+        \item \textbf{Flags (NU, UP, EI, PL, NZ, NA, PO, NC):} Các cờ trạng thái (flags) như NU (No Unordered), UP (Underflow Pending), EI (Interrupt Enable), PL (Positive), NZ (Not Zero), NA (No Align Check), PO (Parity Odd), NC (No Carry) phản ánh trạng thái của CPU sau mỗi lệnh. Ví dụ, cờ EI cho thấy ngắt được bật, cho phép \texttt{INT 21H} hoạt động.
+    \end{itemize}
+    
+    \item[--] \textbf{Cơ chế quản lý bộ nhớ của hệ thống:}
+    \begin{itemize}[label=$+$]
+        \item Hệ thống sử dụng mô hình \textbf{segmented memory} (bộ nhớ phân đoạn) đặc trưng của kiến trúc x86 thực thi ở chế độ thực (real mode). Bộ nhớ được chia thành các đoạn (CS, DS, SS, ES), mỗi đoạn có kích thước tối đa 64KB. Địa chỉ logic được tính bằng cách nhân giá trị đoạn với 16 (shift left 4 bit) và cộng với offset (ví dụ: DS:SI hoặc CS:IP).
+
+        \item \textbf{Phân chia bộ nhớ:}
+        \begin{itemize}
+            \item \textbf{Code Segment (CS):} Chứa mã lệnh Assembly (từ \texttt{MAIN PROC} đến \texttt{END MAIN}), được trỏ bởi CS:IP. Giá trị CS (\texttt{0723h}) kết hợp với IP (\texttt{0204h}, \texttt{021Bh}, v.v.) xác định vị trí lệnh hiện tại.
+            \item \textbf{Data Segment (DS):} Chứa dữ liệu tĩnh như \texttt{TB1}, \texttt{TB2}, và \texttt{OUTPUT}, được truy cập qua DS và offset (ví dụ: \texttt{LEA DX, TB1} với DX = \texttt{D21h}). Giá trị DS (\texttt{0720h}) trỏ đến khu vực dữ liệu.
+            \item \textbf{Stack Segment (SS):} Dùng để lưu trữ stack, quản lý bởi SS:SP. Với \texttt{.STACK 100H}, stack có kích thước 256 byte, và SP (\texttt{09FAh}) thay đổi khi gọi hàm (như \texttt{INT 21H}).
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
 \newpage
 \section{Bài tập nhóm: Traffic light system}
 
@@ -209,43 +377,48 @@ cứng, CD, Thiết bị vào ra.)}
 #start=Traffic_Lights.exe#
 
 name "traffic"
+.Model Small
+.Stack 100h
+.Data
+    ; FEDC_BA98_7654_3210
+    situation dw 0000_0011_0000_1100b ; Xanh doc  
+    s1 dw 0000_0010_1000_1010b  ; Vang doc
+    s2 dw 0000_1000_0110_0001b  ; Xanh ngang
+    s3 dw 0000_0100_0101_0001b  ; Vang ngang
+    sit_end = $
 
-MOV AX, all_red
-OUT 4, AX
-
-MOV SI, offset situation
+    all_red equ 0000_0010_0100_1001b
+.Code
+MAIN Proc
+     MOV AX, @DATA
+    MOV DS, AX
+    
+    MOV AX, all_red
+    OUT 4, AX
+    
+    MOV SI, offset situation
 
 next:
-MOV AX, [SI]
-OUT 4, AX
+    MOV AX, [SI]
+    OUT 4, AX
 
-; wait 1 seconds (1 million microseconds)
-MOV cx, 0FH ; 004C4B40h = 5,000,000
-MOV dx, 4240H
-MOV ah, 86H
-INT 15H   
-
-MOV cx, 0FH ; 004C4B40h = 5,000,000
-MOV dx, 4240H
-MOV ah, 86H
-INT 15H
-
-ADD SI, 2   ; next situation
-CMP SI, sit_end
-JB  next
-MOV SI, offset situation
-JMP next
-
-; FEDC_BA98_7654_3210
-situation dw 0000_0011_0000_1100b
-s1 dw 0000_0110_1001_1010b
-s2 dw 0000_1000_0110_0001b
-s3 dw 0000_1000_0110_0001b
-s4 dw 0000_0100_1101_0011b
-sit_end = $
-
-all_red equ 0000_0010_0100_1001b
-
+    MOV CX, 0FH ; 004C4B40h = 5,000,000
+    MOV DX, 4240H
+    MOV AH, 86H
+    INT 15H   
+    
+    MOV CX, 0FH ; 004C4B40h = 5,000,000
+    MOV DX, 4240H
+    MOV AH, 86H
+    INT 15H
+    
+    ADD SI, 2   ; next situation
+    CMP SI, sit_end
+    JB  next
+    MOV SI, offset situation
+    JMP next
+MAIN Endp
+End MAIN
 \end{lstlisting}
 
 \end{document}
