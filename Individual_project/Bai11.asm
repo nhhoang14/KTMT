@@ -7,7 +7,8 @@
     MIN DB ?
     MAX DB ?   
 .Code
-    MAIN Proc           
+    MAIN Proc
+        ; Khoi tao cho thanh ghi DS
         MOV AX, @DATA
         MOV DS, AX
                    
