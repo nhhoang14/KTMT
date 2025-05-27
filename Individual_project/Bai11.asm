@@ -11,16 +11,16 @@
         MOV AX, @DATA
         MOV DS, AX
                    
-        MOV CX, 9 ; So phan tu trong mang
-        LEA SI, list ; SI tro den dau mang
-        MOV AL, [SI] ; Lay phan tu dau tien
-        MOV MAX, AL
-        MOV MIN, AL
-        INC SI   ; Tro den phan tu tiep theo
-        DEC CX ; Da xu ly 1 phan tu dau tien nen giam CX
+        MOV CX, 9   ; So phan tu trong mang
+        LEA SI, list    ; SI tro den dau mang
+        MOV AL, [SI]    ; Lay phan tu dau tien
+        MOV MAX, AL ; Gan MAX = phan tu dau tien
+        MOV MIN, AL ; Gan MIN = phan tu dau tien
+        INC SI  ; Tro den phan tu tiep theo
+        DEC CX  ; Da xu ly 1 phan tu dau tien nen giam CX
     
     Start:
-        LODSB  ; Nap phan tu tiep theo vao AL va tang SI
+        LODSB   ; Nap phan tu tiep theo vao AL va tang SI
         CMP AL, MAX
         JLE SkipMax
         MOV MAX, AL
@@ -30,7 +30,7 @@
         MOV MIN, AL
     SkipMin:
         LOOP Start
-
+    
         ; In TB1
         LEA DX, TB1
         MOV AH, 9
