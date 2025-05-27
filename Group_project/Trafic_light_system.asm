@@ -27,14 +27,14 @@ next:
     MOV AX, [SI]
     OUT 4, AX
 
-    MOV cx, 0FH ; 004C4B40h = 5,000,000
-    MOV dx, 4240H
-    MOV ah, 86H
+    MOV CX, 0FH ; 004C4B40h = 5,000,000
+    MOV DX, 4240H
+    MOV AH, 86H
     INT 15H   
     
-    MOV cx, 0FH ; 004C4B40h = 5,000,000
-    MOV dx, 4240H
-    MOV ah, 86H
+    MOV CX, 0FH ; 004C4B40h = 5,000,000
+    MOV DX, 4240H
+    MOV AH, 86H
     INT 15H
     
     ADD SI, 2   ; next situation
