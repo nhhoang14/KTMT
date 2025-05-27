@@ -6,17 +6,15 @@ name "traffic"
 .Data
     ; FEDC_BA98_7654_3210
     situation dw 0000_0011_0000_1100b ; Xanh doc  
-    s1 dw 0000_0011_0000_1100b ; Xanh doc
-    s2 dw 0000_0010_1000_1010b  ; Vang doc
-    s3 dw 0000_1000_0110_0001b  ; Xanh ngang
-    s4 dw 0000_1000_0110_0001b  ; Xang ngang
-    s5 dw 0000_0100_0101_0001b  ; Vang ngang
+    s1 dw 0000_0010_1000_1010b  ; Vang doc
+    s2 dw 0000_1000_0110_0001b  ; Xanh ngang
+    s3 dw 0000_0100_0101_0001b  ; Vang ngang
     sit_end = $
 
     all_red equ 0000_0010_0100_1001b
 .Code
 MAIN Proc
-    MOV AX, @DATA
+     MOV AX, @DATA
     MOV DS, AX
     
     MOV AX, all_red
