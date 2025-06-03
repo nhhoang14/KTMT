@@ -53,7 +53,10 @@ name "traffic"
         INT 15H
         ret
     delay5s endp
-
+    
+    ; Blink_light
+    
+    
 MAIN Proc
     MOV AX, @DATA
     MOV DS, AX 
