@@ -22,40 +22,81 @@ name "traffic"
 .Code 
     ; THOI GIAN DEN TIN HIEU
        
-    delay0.2s proc
+    delay0.2s Proc
+        PUSH AX
+        PUSH CX
         MOV CX, 0003H    
         MOV DX, 0D40H   
         MOV AH, 86H
         INT 15H
-        ret
-    delay0.2s endp
+        POP CX
+        POP AX
+        ret             
+    delay0.2s Endp
     
-    delay1s proc
+    delay1s Proc
+        PUSH AX
+        PUSH CX
         MOV CX, 0FH 
         MOV DX, 4240H
         MOV AH, 86H
         INT 15H
+        POP CX
+        POP AX
         ret
-    delay1s endp
+    delay1s Endp
     
-    delay2s proc
+    delay2s Proc
+        PUSH AX
+        PUSH CX
         MOV CX, 001EH   
         MOV DX, 8480H
         MOV AH, 86H
         INT 15H
+        POP CX
+        POP AX
         ret
-    delay2s endp
+    delay2s Endp
     
-    delay5s proc
+    delay5s Proc
+        PUSH AX
+        PUSH CX
         MOV CX, 004CH    
         MOV DX, 4B40H
         MOV AH, 86H
         INT 15H
+        POP CX
+        POP AX
         ret
-    delay5s endp
+    delay5s Endp
     
-    ; Blink_light
+    ; Nhap nhay den
     
+    Blink_light Proc
+        push cx
+        mov cx, 2     ; so lan nhay
+        
+    loop_start:
+        ; Xuat trang thai tat (BX)  
+        xchg ax, bx
+        out 4, ax
+        call delay0.2s
+        
+        ; Xuat trang thai sang (AX)
+        xchg ax, bx
+        out 4, ax
+        call delay0.2s
+        
+        loop loop_start
+    
+        ; Ket thuc bang trang thai tat
+        xchg ax, bx
+        out 4, ax
+        call delay0.2s
+        
+        pop cx
+        ret
+    Blink_light Endp
     
 MAIN Proc
     MOV AX, @DATA
@@ -69,50 +110,18 @@ next:
     out 4, ax
     call delay5s 
     
-    mov ax,s2
-    out 4, ax
-    call delay0.2s
-    
-    mov ax,s1
-    out 4, ax
-    call delay0.2s
-    
-    mov ax,s2
-    out 4, ax
-    call delay0.2s
-    
-    mov ax,s1
-    out 4, ax
-    call delay0.2s
-    
-    mov ax,s2
-    out 4, ax
-    call delay0.2s
+    mov ax,s1    
+    mov bx,s2    
+    call Blink_light
     
     ; Vang doc
     mov ax,s3
     out 4, ax
     call delay2s
     
-    mov ax,off
-    out 4, ax
-    call delay0.2s
-    
-    mov ax,s3
-    out 4, ax
-    call delay0.2s
-   
-    mov ax,off
-    out 4, ax
-    call delay0.2s
-    
-    mov ax,s3
-    out 4, ax
-    call delay0.2s
-    
-    mov ax,off
-    out 4, ax
-    call delay0.2s
+    mov ax,s3    
+    mov bx,off    
+    call Blink_light
     
     ; GIAI DOAN 2: CHI ÐUONG NGANG HOAT ÐONG
     
@@ -121,50 +130,18 @@ next:
     out 4, ax
     call delay5s
     
-    mov ax,s5
-    out 4, ax
-    call delay0.2s
-    
-    mov ax,s4
-    out 4, ax
-    call delay0.2s
-    
-    mov ax,s5
-    out 4, ax
-    call delay0.2s
-    
-    mov ax,s4
-    out 4, ax
-    call delay0.2s 
-    
-    mov ax,s5
-    out 4, ax
-    call delay0.2s
+    mov ax,s4    
+    mov bx,s5    
+    call Blink_light
            
     ; Vang ngang
     mov ax,s6
     out 4, ax
     call delay2s
     
-    mov ax,off
-    out 4, ax
-    call delay0.2s
-    
-    mov ax,s6
-    out 4, ax
-    call delay0.2s
-    
-    mov ax,off
-    out 4, ax
-    call delay0.2s
-    
-    mov ax,s6
-    out 4, ax
-    call delay0.2s
-    
-    mov ax,off
-    out 4, ax
-    call delay0.2s
+    mov ax,s6    
+    mov bx,off    
+    call Blink_light
   
     JMP next
 MAIN Endp
