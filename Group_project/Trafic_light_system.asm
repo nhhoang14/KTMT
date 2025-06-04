@@ -17,6 +17,10 @@ name "traffic"
     
     off  dw 0000_0000_0000_0000b  ; Tat toan bo
     
+    all_green dw 0000_1001_0010_0100b
+    
+    all_red dw 0000_0010_0100_1001b
+    
     sit_end = $
     
 .Code 
@@ -98,10 +102,50 @@ name "traffic"
         ret
     Blink_light Endp
     
+    Check_Input Proc
+        mov ah, 1
+        int 21h
+        
+        cmp al, '1'
+        je exit_program1
+        cmp al, '2'
+        je exit_program2
+        
+    no_input:
+        ret
+    
+    
+    exit_program2:
+        mov ax, all_red
+        out 4, ax
+        call delay5s
+        
+        mov ax, off
+        out 4, ax
+        
+        mov ah, 4Ch
+        int 21h
+    
+    exit_program1:
+        mov ax, all_green
+        out 4, ax
+        call delay5s
+        
+        mov ax, off
+        out 4, ax
+        
+        mov ah, 4Ch
+        int 21h
+        
+Check_Input Endp
+     
+    
 MAIN Proc
     MOV AX, @DATA
     MOV DS, AX 
-
+    
+    call check_input
+    
 next:
     ; GIAI DOAN 1: CHI DUONG DOC HOAT ÐONG
     
